@@ -1,12 +1,30 @@
-#define SOUND_SENSOR A0 // Chân AO của KY-037
+
+const int analogPin = A0;  
+const int digitalPin = 7; 
+const int ledPin = 13;     
 
 void setup() {
-    Serial.begin(9600);
+  pinMode(digitalPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
-    int soundLevel = analogRead(SOUND_SENSOR);
-    Serial.print("Mức âm thanh: ");
-    Serial.println(soundLevel);
-    delay(1000);
+  int analogValue = analogRead(analogPin);   
+  int digitalValue = digitalRead(digitalPin); 
+
+ 
+  Serial.print("Analog: ");
+  Serial.print(analogValue);
+  Serial.print(" | Digital: ");
+  Serial.println(digitalValue);
+
+  
+  if (digitalValue == HIGH || analogValue > 600) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  delay(200); 
 }
